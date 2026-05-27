@@ -1,0 +1,43 @@
+City–Metro master workbook validation report
+Generated: 2026-05-25
+Source package: Malaysia_7Cities_Traffic_Dataset_Package_FullMonthly_20260507.zip
+New workbook: data/processed/TomTom_Malaysia_7Cities_City_Metro_2025_Master.xlsx
+
+Workbook sheets:
+00_readme
+01_annual_overview
+02_monthly_congestion
+03_rush_hour_clean
+04_heatmap_long
+05_osm_context
+06_background
+07_derived_metrics
+08_robustness
+09_source_audit
+10_rush_hour_audit
+11_validation
+12_data_availability
+
+Three validation rounds:
+1. Build-time structural validation:
+   - annual paired rows: expected 14, observed 14.
+   - monthly congestion rows: expected 336, observed 336.
+   - rush-hour clean rows: expected 28, observed 28.
+   - heatmap long rows: expected 7056, observed 7056.
+   - source audit rows: expected 70, observed 70.
+2. Core-value validation:
+   - annual critical missing count: 0.
+   - rush-hour critical missing count: 0.
+   - OSM context rows: 7.
+   - background rows: 7.
+3. Workbook validation:
+   - formula error scan: no #REF!, #DIV/0!, #VALUE!, #NAME?, or #N/A matches detected.
+   - source data policy: original source/raw files were copied unchanged; the new workbook was added as a processed derivative.
+
+Data availability statement:
+Processed indicators, source logs, screenshots, spatial context files and analysis scripts are provided. Proprietary TomTom algorithms and reporting boundaries are not reconstructed.
+
+Important limitations:
+- TomTom Traffic Index values are platform-reported indicators, not ground-truth detector observations.
+- Proprietary TomTom reporting boundaries are not reconstructed.
+- OSM and population/vehicle indicators are contextual descriptors and should not be interpreted as causal evidence.
