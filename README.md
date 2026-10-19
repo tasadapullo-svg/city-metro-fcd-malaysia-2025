@@ -1,11 +1,28 @@
-# Malaysia 7 Cities Traffic Performance Dataset Package (TomTom + OSM + Population/Vehicle)
+# Malaysia Seven-City City–Metro FCD Reproducibility Package
 
 Prepared for: Sun Wenjie, Faculty of Built Environment and Surveying, Universiti Teknologi Malaysia.  
-Package version: 2026-05-07 recalibrated monthly coverage.
+Package version: 2026-10-19 CSTP R2 reproducibility update.
 
 ## Purpose
 
 This package supports an exploratory urban traffic-performance manuscript using platform-reported TomTom Traffic Index indicators, OpenStreetMap road-network indicators, and population/vehicle background proxies for seven Malaysian cities.
+
+## CSTP R2 reproducibility
+
+The R2 verification workflow independently recomputes the manuscript's annual sensitivity, M0–M5 robustness, Top-2/Top-3 screening, peak asymmetry (PAI), 24×7 temporal absolute sensitivity (TAS), and monthly congestion results from the frozen processed master workbook.
+
+```bash
+python -m pip install "openpyxl>=3.1"
+python scripts__05_reproduce_cstp_r2.py --check --output-dir r2_reproduction
+```
+
+To also generate the self-contained, de-identified reviewer archive:
+
+```bash
+python scripts__05_reproduce_cstp_r2.py --check --output-dir r2_reproduction --build-review-package CSTP_R2_Reviewer_Verification.zip
+```
+
+See [`README_R2_REPRODUCIBILITY.md`](README_R2_REPRODUCIBILITY.md) for inputs, outputs, reviewer instructions, and scientific boundaries. The generated output directory and reviewer ZIP are verification artifacts and are not committed to this repository.
 
 ## City coverage
 
@@ -17,39 +34,33 @@ This package supports an exploratory urban traffic-performance manuscript using 
 6. Ipoh
 7. Kajang
 
-## Directory structure
+## Repository structure
 
 ```text
-Malaysia_7Cities_Traffic_Dataset_Package/
-├─ data/
-│  ├─ raw/
-│  │  ├─ tomtom_screenshots/
-│  │  ├─ tomtom_city_workbooks/
-│  │  ├─ osm_boundaries/
-│  │  ├─ osm_road_edges/
-│  │  └─ population_vehicle/
-│  └─ processed/
-│     ├─ TomTom_source_log.xlsx
-│     ├─ TomTom_7Cities_heatmap_long_2025.xlsx
-│     ├─ TomTom_7Cities_monthly_congestion_long_2025.xlsx
-│     ├─ TomTom_7Cities_rush_hour_long_2025.xlsx
-│     ├─ Malaysia_7Cities_master_dataset.xlsx
-│     ├─ OSM_road_network_indicators_7_cities_recalibrated.xlsx
-│     └─ population_vehicle_indicators_7_cities.xlsx
-├─ scripts/
-├─ validation/
-└─ docs/
+city-metro-fcd-malaysia-2025/
+├─ data__processed__*.xlsx
+├─ data__raw__*.xlsx / *.parquet / *.geojson
+├─ scripts__*.py
+├─ validation__*
+├─ docs__*.docx
+├─ README_R2_REPRODUCIBILITY.md
+├─ README_FLAT_PACKAGE.md
+└─ FILE_MANIFEST.csv
 ```
+
+The public GitHub package is intentionally flat. Double underscores in filenames preserve the original directory roles. Raw TomTom screenshots are excluded because redistribution rights are restricted.
 
 ## Key processed files
 
 | File | Description | Coverage |
 |---|---|---:|
-| `TomTom_source_log.xlsx` | Screenshot-level traceability log | 70 screenshot records |
-| `TomTom_7Cities_heatmap_long_2025.xlsx` | 24 × 7 driving-pattern data for travel time, congestion and speed | 7056 records |
-| `TomTom_7Cities_monthly_congestion_long_2025.xlsx` | Monthly congestion values for City/Metro, 2024/2025, Jan-Dec | 336 records |
-| `TomTom_7Cities_rush_hour_long_2025.xlsx` | Morning/evening rush-hour summaries | 38 records |
-| `Malaysia_7Cities_master_dataset.xlsx` | Merged TomTom + OSM + population/vehicle city-level master file | 7 cities |
+| `data__processed__TomTom_Malaysia_7Cities_City_Metro_2025_Master.xlsx` | Frozen City–Metro master workbook used by the R2 verification script | 7 cities; 13 worksheets |
+| `data__processed__TomTom_source_log.xlsx` | Screenshot-level traceability log | 70 source records |
+| `data__processed__TomTom_7Cities_heatmap_long_2025.xlsx` | 24 × 7 driving-pattern data for travel time, congestion and speed | 7,056 records |
+| `data__processed__TomTom_7Cities_monthly_congestion_long_2025.xlsx` | Monthly congestion values for City/Metro, 2024–2025, January–December | 336 records |
+| `data__processed__TomTom_7Cities_rush_hour_long_2025.xlsx` | Legacy/mixed rush-hour export; not the PAI verification input | 38 records |
+
+For PAI, the R2 workflow uses the cleaned 28-record `03_rush_hour_clean` worksheet in the frozen master workbook.
 
 ## Monthly congestion recalibration
 
@@ -67,4 +78,4 @@ TomTom indicators are treated as platform-reported comparative indicators. They 
 
 ## Recommended citation statement for data availability
 
-The processed indicator tables, source logs, screenshots, spatial boundary files, OSM road-edge files, and analysis scripts are provided in this replication package. Raw platform algorithms and proprietary TomTom reporting boundaries are not redistributed or reconstructed.
+The processed indicator tables, source logs, permitted spatial boundary files, OSM road-edge files, and analysis scripts are provided in this replication package. Raw TomTom screenshots, platform algorithms, and proprietary TomTom reporting boundaries are not redistributed or reconstructed.
